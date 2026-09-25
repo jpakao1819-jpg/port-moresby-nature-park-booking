@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Port Moresby Nature Park | PNG's Premier Wildlife Sanctuary & Botanical Haven</title>
+  <meta name="description" content="Visit Port Moresby Nature Park, Papua New Guinea's award-winning wildlife sanctuary. Home to 550+ native animals, tree kangaroos, birds of paradise, 35,000+ school students annually, and world-class conservation.">
+  <meta name="theme-color" content="#1b4332">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Port Moresby Nature Park | Wildlife Sanctuary & Botanical Gardens">
+  <meta property="og:description" content="Discover PNG's iconic wildlife, educational excursions, and botanical beauty. Open daily in Port Moresby.">
+  <meta property="og:image" content="https://portmoresbynaturepark.com.pg/wp-content/uploads/2026/02/IMG_0586-scaled.jpg">
+  <meta property="og:url" content="https://portmoresbynaturepark.com.pg/">
+  <meta property="og:type" content="website">
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="https://portmoresbynaturepark.com.pg/wp-content/uploads/2026/01/cropped-Website-Logo-Small-01-32x32.png">
+</head>
+<body>
+
+  <!-- Top Announcement & Live Visitor Status Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-container">
+      <div class="top-bar-left">
+        <span class="status-badge" id="parkStatusBadge">
+          <span class="status-pulse"></span>
+          <span id="parkStatusText">Open Today: 8:30 AM – 4:30 PM</span>
+        </span>
+        <span class="top-bar-divider">|</span>
+        <span class="location-text">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Goro Kaeaga Rd (Next to UPNG), Port Moresby
+        </span>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:+67572301805" class="top-link">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          +675 7230 1805
+        </a>
+        <a href="https://wa.me/67572301805?text=Hello%20Port%20Moresby%20Nature%20Park,%20I%20would%20like%20to%20inquire%20about%20visiting." target="_blank" rel="noopener noreferrer" class="whatsapp-badge">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+          Quick WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="main-header" id="navbar">
+    <div class="container nav-container">
+      <a href="#home" class="brand-logo" aria-label="Port Moresby Nature Park Home">
+        <img src="https://portmoresbynaturepark.com.pg/wp-content/uploads/2025/03/POMnaturePark_logo-white-text.png" alt="Port Moresby Nature Park Logo" width="220" height="78">
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-menu" id="navMenu">
+        <a href="#plan-visit" class="nav-link">Plan Your Visit</a>
+        <a href="#wildlife" class="nav-link">Wildlife & Flora</a>
+        <a href="#education" class="nav-link">School Excursions</a>
+        <a href="#events" class="nav-link">Upcoming Events</a>
+        <a href="#membership" class="nav-link">2026 Membership</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <!-- Header Action Buttons -->
+      <div class="nav-actions">
+        <button class="btn btn-outline" id="btnOpenExcursion">School Booking</button>
+        <button class="btn btn-primary" id="btnOpenTickets">Book Tickets</button>
+        <!-- Mobile Hamburger Toggle -->
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer" id="mobileDrawer" inert>
+    <div class="mobile-drawer-header">
+      <img src="https://portmoresbynaturepark.com.pg/wp-content/uploads/2025/03/POMnaturePark_logo-white-text.png" alt="Logo" width="160">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="Close menu">&times;</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="#plan-visit" class="m-link">Plan Your Visit</a>
+      <a href="#wildlife" class="m-link">Wildlife & Flora</a>
+      <a href="#education" class="m-link">School Excursions</a>
+      <a href="#events" class="m-link">Upcoming Events</a>
+      <a href="#membership" class="m-link">2026 Membership</a>
+      <a href="#contact" class="m-link">Contact & Location</a>
+    </nav>
+    <div class="mobile-drawer-actions">
+      <button class="btn btn-primary btn-block" id="mBtnTickets">Reserve Tickets</button>
+      <button class="btn btn-outline btn-block" id="mBtnExcursion">Book School Excursion</button>
+      <a href="https://wa.me/67572301805" class="btn btn-whatsapp btn-block" target="_blank">Chat on WhatsApp</a>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+      <div class="hero-backdrop"></div>
+      <div class="container hero-container">
+        <div class="hero-badge">
+          <span class="badge-icon">🌿</span>
+          <span>Papua New Guinea's #1 Eco-Tourism Sanctuary</span>
+        </div>
+        <h1 class="hero-title">Experience the Natural Wonders of Papua New Guinea</h1>
+        <p class="hero-subtitle">
+          Home to over 550 native wildlife species, 11,000+ tropical flora specimens, and PNG's leading wildlife rescue, conservation, and education programs. A peaceful 30-acre rainforest sanctuary in the capital.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#plan-visit" class="btn btn-lg btn-primary">
+            Plan Your Visit & Pricing
+            <svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <button class="btn btn-lg btn-glass" id="heroBtnBooking">
+            Book School Excursion
+          </button>
+        </div>
+
+        <!-- Live Park Impact Metric Ticker -->
+        <div class="hero-stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">550+</div>
+            <div class="stat-label">Native Wildlife Species</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">35,000+</div>
+            <div class="stat-label">Students Educated Annually</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">30 Acres</div>
+            <div class="stat-label">Protected Tropical Botanical Parkland</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Non-Profit Wildlife Welfare Charity</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plan Your Visit & Live Ticket Estimator Section -->
+    <section class="section plan-section" id="plan-visit">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">VISITOR ESSENTIALS</div>
+          <h2 class="section-title">Plan Your Visit to the Nature Park</h2>
+          <p class="section-desc">
+            Everything you need for an unforgettable day with your family, classmates, or tour group. Clear admission prices, opening hours, and park amenities.
+          </p>
+        </div>
+
+        <div class="plan-grid">
+          <!-- Left: Essential Info & Hours -->
+          <div class="plan-info-card">
+            <div class="info-card-header">
+              <div class="icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <div>
+                <h3>Park Hours & Guidelines</h3>
+                <p>Open 7 Days a week, 365 Days a year</p>
+              </div>
+            </div>
+
+            <div class="hours-list">
+              <div class="hours-row highlight">
+                <span>Monday – Sunday</span>
+                <strong>8:30 AM – 4:30 PM</strong>
+              </div>
+              <div class="hours-row">
+                <span>Last Park Entry</span>
+                <strong>3:45 PM</strong>
+              </div>
+              <div class="hours-row">
+                <span>Nature's Cafe & Gift Shop</span>
+                <strong>9:00 AM – 4:00 PM</strong>
+              </div>
+              <div class="hours-row">
+                <span>Public Holidays</span>
+                <strong class="text-success">Normal Hours (Open)</strong>
+              </div>
+            </div>
+
+            <div class="park-amenities">
+              <h4>Sanctuary Amenities</h4>
+              <ul class="amenities-list">
+                <li><span>☕</span> Nature’s Cafe (Hot food, cold drinks, fresh coffee)</li>
+                <li><span>🎁</span> Souvenir Gift Shop (Local handicrafts & keepsakes)</li>
+                <li><span>♿</span> Wheelchair & Stroller Accessible Walkways</li>
+                <li><span>🌱</span> Native Plant Nursery (Orchids, Palms, Shrubs for sale)</li>
+                <li><span>🚗</span> Free Secure On-Site Vehicle Parking</li>
+                <li><span>🛡️</span> 24/7 Park Security & First Aid Station</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Right: Live Interactive Admission Calculator -->
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <span class="calc-tag">LIVE PASS CALCULATOR</span>
+              <h3>Calculate Admission & Reserve Passes</h3>
+              <p>Select your visitors to estimate total fees in Papua New Guinea Kina (PGK):</p>
+            </div>
+
+            <form id="calcForm" class="calc-form">
+              <!-- Tier 1: Adults -->
+              <div class="ticket-row">
+                <div class="ticket-info">
+                  <strong>Adult (Resident)</strong>
+                  <span class="ticket-price">K15.00</span>
+                </div>
+                <div class="quantity-control">
+                  <button type="button" class="btn-qty" data-action="dec" data-type="adult">-</button>
+                  <input type="number" id="qtyAdult" value="2" min="0" max="50" readonly>
+                  <button type="button" class="btn-qty" data-action="inc" data-type="adult">+</button>
+                </div>
+              </div>
+
+              <!-- Tier 2: Children -->
+              <div class="ticket-row">
+                <div class="ticket-info">
+                  <strong>Child (Ages 3–12)</strong>
+                  <span class="ticket-price">K10.00</span>
+                </div>
+                <div class="quantity-control">
+                  <button type="button" class="btn-qty" data-action="dec" data-type="child">-</button>
+                  <input type="number" id="qtyChild" value="1" min="0" max="50" readonly>
+                  <button type="button" class="btn-qty" data-action="inc" data-type="child">+</button>
+                </div>
+              </div>
+
+              <!-- Tier 3: Students -->
+              <div class="ticket-row">
+                <div class="ticket-info">
+                  <strong>Student (With Valid ID)</strong>
+                  <span class="ticket-price">K12.00</span>
+                </div>
+                <div class="quantity-control">
+                  <button type="button" class="btn-qty" data-action="dec" data-type="student">-</button>
+                  <input type="number" id="qtyStudent" value="0" min="0" max="50" readonly>
+                  <button type="button" class="btn-qty" data-action="inc" data-type="student">+</button>
+                </div>
+              </div>
+
+              <!-- Tier 4: International Tourists -->
+              <div class="ticket-row">
+                <div class="ticket-info">
+                  <strong>International Visitor / Tourist</strong>
+                  <span class="ticket-price">K35.00</span>
+                </div>
+                <div class="quantity-control">
+                  <button type="button" class="btn-qty" data-action="dec" data-type="tourist">-</button>
+                  <input type="number" id="qtyTourist" value="0" min="0" max="50" readonly>
+                  <button type="button" class="btn-qty" data-action="inc" data-type="tourist">+</button>
+                </div>
+              </div>
+
+              <div class="ticket-row free-row">
+                <div class="ticket-info">
+                  <strong>Infants (Under 3 Years)</strong>
+                  <span class="badge-free">FREE</span>
+                </div>
+                <span class="text-muted">No ticket required</span>
+              </div>
+
+              <!-- Total calculation readout -->
+              <div class="calc-total-box">
+                <div class="calc-total-label">
+                  <span>Estimated Total:</span>
+                  <small>Pay at gate or pre-reserve via inquiry</small>
+                </div>
+                <div class="calc-total-amount" id="totalAmountDisplay">K40.00</div>
+              </div>
+
+              <button type="button" class="btn btn-primary btn-block btn-lg" id="btnBookFromCalc">
+                Reserve My Passes Online
+              </button>
+              <div class="calc-guarantee">
+                🔒 Instant confirmation • Flexible re-booking • Groups 20+ qualify for special rates
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Iconic PNG Wildlife & Flora Showcase -->
+    <section class="section wildlife-section" id="wildlife">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">WILDLIFE CONSERVATION</div>
+          <h2 class="section-title">Meet PNG’s Most Incredible Animals & Flora</h2>
+          <p class="section-desc">
+            Papua New Guinea is home to 5% of global biodiversity. At the Nature Park, get up close with rare endemic species found nowhere else on earth.
+          </p>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="filter-tabs" role="tablist">
+          <button class="filter-btn active" data-filter="all">All Species (6)</button>
+          <button class="filter-btn" data-filter="iconic">Iconic Wildlife</button>
+          <button class="filter-btn" data-filter="birds">Birds of Paradise</button>
+          <button class="filter-btn" data-filter="flora">Tropical Flora</button>
+          <button class="filter-btn" data-filter="reptiles">Reptiles & Frogs</button>
+        </div>
+
+        <div class="wildlife-grid" id="wildlifeGrid">
+          <!-- Animal 1: Tree Kangaroo -->
+          <article class="wildlife-card" data-category="iconic">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1579613832125-5d34a13ffe0a?auto=format&fit=crop&w=700&q=80" alt="Tree Kangaroo" loading="lazy">
+              <span class="card-badge badge-danger">Endangered</span>
+            </div>
+            <div class="card-body">
+              <span class="scientific-name">Dendrolagus goodfellowi</span>
+              <h3 class="card-title">Goodfellow’s Tree Kangaroo</h3>
+              <p class="card-text">
+                One of PNG’s most treasured tree-dwelling marsupials. Our park is an international leader in breeding and rehabilitation research.
+              </p>
+              <button class="card-link-btn" data-animal="tree-kangaroo">Learn Animal Facts &rarr;</button>
+            </div>
+          </article>
+
+          <!-- Animal 2: Raggiana Bird of Paradise -->
+          <article class="wildlife-card" data-category="birds iconic">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=700&q=80" alt="Raggiana Bird of Paradise" loading="lazy">
+              <span class="card-badge badge-warning">PNG National Icon</span>
+            </div>
+            <div class="card-body">
+              <span class="scientific-name">Paradisaea raggiana</span>
+              <h3 class="card-title">Raggiana Bird of Paradise</h3>
+              <p class="card-text">
+                Featured on the National Flag of Papua New Guinea. Experience their courtship displays and vibrant plumage in our walk-through aviary.
+              </p>
+              <button class="card-link-btn" data-animal="raggiana">Learn Bird Facts &rarr;</button>
+            </div>
+          </article>
+
+          <!-- Animal 3: Southern Cassowary -->
+          <article class="wildlife-card" data-category="iconic birds">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=700&q=80" alt="Southern Cassowary" loading="lazy">
+              <span class="card-badge badge-info">Keystone Rainforest Bird</span>
+            </div>
+            <div class="card-body">
+              <span class="scientific-name">Casuarius casuarius</span>
+              <h3 class="card-title">Southern Cassowary</h3>
+              <p class="card-text">
+                The ancient dinosaur of modern birds. Known as the gardener of the rainforest for seed dispersal across the vast highlands and lowlands.
+              </p>
+              <button class="card-link-btn" data-animal="cassowary">Learn Bird Facts &rarr;</button>
+            </div>
+          </article>
+
+          <!-- Animal 4: Victoria Crowned Pigeon -->
+          <article class="wildlife-card" data-category="birds">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1588636166442-f9024f2b1d03?auto=format&fit=crop&w=700&q=80" alt="Victoria Crowned Pigeon" loading="lazy">
+              <span class="card-badge badge-success">Vulnerable</span>
+            </div>
+            <div class="card-body">
+              <span class="scientific-name">Goura victoria</span>
+              <h3 class="card-title">Victoria Crowned Pigeon</h3>
+              <p class="card-text">
+                The world’s largest pigeon species. Distinguished by an exquisite lace-like blue crest and deep rhythmic cooing echoing through the park.
+              </p>
+              <button class="card-link-btn" data-animal="crowned-pigeon">Learn Bird Facts &rarr;</button>
+            </div>
+          </article>
+
+          <!-- Flora 5: Native PNG Orchids -->
+          <article class="wildlife-card" data-category="flora">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=700&q=80" alt="Native PNG Orchids" loading="lazy">
+              <span class="card-badge badge-purple">3,000+ PNG Species</span>
+            </div>
+            <div class="card-body">
+              <span class="scientific-name">Orchidaceae Papua</span>
+              <h3 class="card-title">National Orchid Collection</h3>
+              <p class="card-text">
+                Papua New Guinea holds 60% of the world's orchid diversity. Stroll through thousands of blooming wild and cultivated specimens.
+              </p>
+              <button class="card-link-btn" data-animal="orchids">Explore Flora &rarr;</button>
+            </div>
+          </article>
+
+          <!-- Animal 6: Green Tree Python -->
+          <article class="wildlife-card" data-category="reptiles">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1531386151447-fd7640330a37?auto=format&fit=crop&w=700&q=80" alt="Green Tree Python" loading="lazy">
+              <span class="card-badge badge-warning">Native Reptile</span>
+            </div>
+            <div class="card-body">
+              <span class="scientific-name">Morelia viridis</span>
+              <h3 class="card-title">Papuan Green Tree Python</h3>
+              <p class="card-text">
+                Fascinating non-venomous tree serpent native to PNG rainforests. Hatchlings are bright lemon yellow before transforming into brilliant emerald.
+              </p>
+              <button class="card-link-btn" data-animal="tree-python">Learn Reptile Facts &rarr;</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- School Excursion & Education Program Hub -->
+    <section class="section education-section" id="education">
+      <div class="container">
+        <div class="education-banner">
+          <div class="edu-content">
+            <span class="section-tag light">EDUCATION & OUTREACH</span>
+            <h2>Empowering PNG’s Next Generation of Conservation Leaders</h2>
+            <p>
+              Over <strong>35,000 students</strong> from primary, secondary, and tertiary schools visit Port Moresby Nature Park each year. Our hands-on outdoor curriculum turns textbook biology into exciting real-life discoveries.
+            </p>
+
+            <div class="edu-features-grid">
+              <div class="edu-feature">
+                <span class="edu-icon">🎒</span>
+                <div>
+                  <strong>Primary Schools Excursion</strong>
+                  <p>Guided interactive tours, sensory rainforest walks, and animal keeper talks.</p>
+                </div>
+              </div>
+              <div class="edu-feature">
+                <span class="edu-icon">🔬</span>
+                <div>
+                  <strong>High School Biology & Ecology</strong>
+                  <p>Field studies in biodiversity, habitat conservation, and endangered species recovery.</p>
+                </div>
+              </div>
+              <div class="edu-feature">
+                <span class="edu-icon">🎭</span>
+                <div>
+                  <strong>Culture Connects Special Program</strong>
+                  <p>Annual August program connecting PNG’s 800+ tribes' traditions with nature protection.</p>
+                </div>
+              </div>
+              <div class="edu-feature">
+                <span class="edu-icon">🚌</span>
+                <div>
+                  <strong>Subsidized Bus Transportation Support</strong>
+                  <p>Inquire with our team for bus transport coordination for recognized school groups.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="edu-cta-row">
+              <button class="btn btn-lg btn-accent" id="btnBookSchoolPromo">
+                Book a School Excursion Online
+              </button>
+              <a href="tel:+67572301805" class="edu-phone-link">
+                Or call our Education Desk: <strong>+675 7230 1805</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming Events & Activities -->
+    <section class="section events-section" id="events">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">WHAT’S HAPPENING</div>
+          <h2 class="section-title">Upcoming Park Events & Programs</h2>
+          <p class="section-desc">Join special cultural celebrations, weekend birdwatching tours, and family holidays in Port Moresby.</p>
+        </div>
+
+        <div class="events-grid">
+          <!-- Event 1 -->
+          <div class="event-card featured">
+            <div class="event-date-box">
+              <span class="month">AUG</span>
+              <span class="day">03–21</span>
+            </div>
+            <div class="event-details">
+              <span class="event-category">Flagship Cultural Program</span>
+              <h3>Culture Connects 2026</h3>
+              <p>
+                Designed for students and families to explore Papua New Guinea’s rich indigenous customs, traditional bilas, and sacred ties to nature.
+              </p>
+              <div class="event-meta">
+                <span>📍 Main Cultural Amphitheatre</span>
+                <span>⏰ Weekdays 9:30 AM – 2:00 PM</span>
+              </div>
+              <button class="btn btn-outline btn-sm" onclick="app.openBooking('Culture Connects 2026')">Register Group / Attend</button>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="event-card">
+            <div class="event-date-box">
+              <span class="month">OCT</span>
+              <span class="day">10</span>
+            </div>
+            <div class="event-details">
+              <span class="event-category">Family Fun Day</span>
+              <h3>World Wildlife Celebration Weekend</h3>
+              <p>
+                Keeper feeding demonstrations, face painting for kids, guided orchid nursery tours, and special native tree planting ceremonies.
+              </p>
+              <div class="event-meta">
+                <span>📍 Nature Park Sanctuary</span>
+                <span>⏰ 9:00 AM – 3:30 PM</span>
+              </div>
+              <button class="btn btn-outline btn-sm" onclick="app.openBooking('World Wildlife Celebration')">Save Date / Tickets</button>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="event-card">
+            <div class="event-date-box">
+              <span class="month">DEC</span>
+              <span class="day">15–22</span>
+            </div>
+            <div class="event-details">
+              <span class="event-category">Holiday Program</span>
+              <h3>Junior Wildlife Ranger Camp</h3>
+              <p>
+                A week-long adventure camp for children ages 6 to 14. Learn animal tracking, plant care, wildlife photography, and nature survival skills.
+              </p>
+              <div class="event-meta">
+                <span>📍 Education Centre</span>
+                <span>⏰ Daily 9:00 AM – 1:00 PM</span>
+              </div>
+              <button class="btn btn-outline btn-sm" onclick="app.openBooking('Junior Wildlife Ranger Camp')">Register Child</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2026 Membership Hub -->
+    <section class="section membership-section" id="membership">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">EXCLUSIVE BENEFITS</div>
+          <h2 class="section-title">Become a 2026 Nature Park Member</h2>
+          <p class="section-desc">
+            Enjoy unlimited admission for a full year, exclusive discounts at the Gift Shop and Cafe, and support critical endangered wildlife rescue programs.
+          </p>
+        </div>
+
+        <div class="membership-grid">
+          <!-- Tier 1: Individual -->
+          <div class="membership-card">
+            <div class="m-card-badge">POPULAR</div>
+            <h3>Individual Annual Pass</h3>
+            <div class="m-price">K150<span> / year</span></div>
+            <p class="m-desc">Perfect for frequent visitors, photographers, birdwatchers, and nature enthusiasts.</p>
+            <ul class="m-perks">
+              <li>✅ <strong>Unlimited Free Entry</strong> for 365 days</li>
+              <li>✅ <strong>5% Discount</strong> at Nature's Gift Shop</li>
+              <li>✅ <strong>10% Discount</strong> on Park Venue Hires</li>
+              <li>✅ Quarterly Conservation Newsletter</li>
+              <li>✅ Exclusive Member-Only Twilight Tours</li>
+            </ul>
+            <button class="btn btn-outline btn-block" onclick="app.openBooking('Individual Membership Application (K150)')">Apply for Individual Pass</button>
+          </div>
+
+          <!-- Tier 2: Family Pass -->
+          <div class="membership-card featured">
+            <div class="m-card-badge highlight">BEST VALUE FOR FAMILIES</div>
+            <h3>Family Annual Pass</h3>
+            <div class="m-price">K350<span> / year</span></div>
+            <p class="m-desc">Covers 2 Adults and up to 3 Children (under 16) for endless weekend family adventures.</p>
+            <ul class="m-perks">
+              <li>✅ <strong>Unlimited Entry for 2 Adults + 3 Kids</strong></li>
+              <li>✅ <strong>5% Discount</strong> on All Gift Shop purchases</li>
+              <li>✅ <strong>10% Discount</strong> on Birthday Venue Hires</li>
+              <li>✅ Priority Booking for Holiday Camps</li>
+              <li>✅ Personalized Digital Membership Cards</li>
+              <li>✅ Special Welcome Pack for Kids</li>
+            </ul>
+            <button class="btn btn-primary btn-block btn-lg" onclick="app.openBooking('Family Membership Application (K350)')">Get Family Membership</button>
+          </div>
+
+          <!-- Tier 3: Corporate & School Partner -->
+          <div class="membership-card">
+            <div class="m-card-badge">CORPORATE CSR</div>
+            <h3>Corporate & School Partner</h3>
+            <div class="m-price">Inquire<span> for tailored packages</span></div>
+            <p class="m-desc">For PNG corporate firms, international NGOs, and educational institutions looking to support conservation.</p>
+            <ul class="m-perks">
+              <li>✅ Group Passes for Staff & Families</li>
+              <li>✅ Logo recognition on Sanctuary Donor Wall</li>
+              <li>✅ Discounted Corporate Family Day venue hire</li>
+              <li>✅ Annual Biodiversity Impact Report</li>
+              <li>✅ Dedicated guided VIP tour by park director</li>
+            </ul>
+            <button class="btn btn-outline btn-block" onclick="app.openBooking('Corporate & Partner Membership Inquiry')">Inquire for Corporate Rates</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Venue Hire & Private Functions -->
+    <section class="section venue-section">
+      <div class="container">
+        <div class="venue-box">
+          <div class="venue-text">
+            <span class="section-tag light">EVENT HIRE</span>
+            <h2>Host Your Wedding, Birthday, or Conference in Nature</h2>
+            <p>
+              Looking for a picturesque tropical garden venue in Port Moresby? From intimate wedding photography shoots and garden ceremonies to 300-seat corporate functions and birthday parties, Nature Park is Port Moresby’s most peaceful backdrop.
+            </p>
+            <ul class="venue-bullet-list">
+              <li>🌸 Lush Tropical Orchid & Rainforest Lawns</li>
+              <li>🎪 Covered Marquees, Picnic Pergolas & Amphitheatre</li>
+              <li>🍽️ On-Site Catering by Nature’s Cafe</li>
+              <li>🔌 Generator Power & Restroom Facilities</li>
+            </ul>
+            <button class="btn btn-accent btn-lg" onclick="app.openBooking('Venue Hire & Functions Booking')">Request Venue Hire Rates</button>
+          </div>
+          <div class="venue-visual">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Garden Wedding Venue" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Frequently Asked Questions (Native Accordion using <details>) -->
+    <section class="section faq-section">
+      <div class="container max-w-narrow">
+        <div class="section-header text-center">
+          <div class="section-tag">FAQ</div>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-desc">Quick answers about tickets, cameras, feeding, and directions.</p>
+        </div>
+
+        <div class="faq-container">
+          <details name="nature-faq" class="faq-item" open>
+            <summary class="faq-question">What are the general admission prices for PNG residents?</summary>
+            <div class="faq-answer">
+              <p>For PNG residents, tickets are <strong>K15.00 for Adults</strong>, <strong>K10.00 for Children (ages 3–12)</strong>, and <strong>K12.00 for Students with a valid student ID</strong>. Infants under 3 years enter completely free of charge!</p>
+            </div>
+          </details>
+
+          <details name="nature-faq" class="faq-item">
+            <summary class="faq-question">Are visitors allowed to feed the animals?</summary>
+            <div class="faq-answer">
+              <p>For the health and safety of our native species, feeding animals outside of supervised keeper programs is strictly prohibited. You can join our scheduled keeper feeding sessions throughout the day where keepers share nutritious, biologically appropriate diets with the cassowaries and tree kangaroos.</p>
+            </div>
+          </details>
+
+          <details name="nature-faq" class="faq-item">
+            <summary class="faq-question">How do I get to Port Moresby Nature Park?</summary>
+            <div class="faq-answer">
+              <p>We are situated on <strong>Goro Kaeaga Road</strong> in Waigani, right between the University of Papua New Guinea (UPNG) and Port Moresby National High School. Ample free, secure on-site parking is available.</p>
+            </div>
+          </details>
+
+          <details name="nature-faq" class="faq-item">
+            <summary class="faq-question">How do schools book an excursion or guided tour?</summary>
+            <div class="faq-answer">
+              <p>Schools can easily submit an excursion request through our online booking modal on this website, or call our Education Department directly at <strong>+675 7230 1805</strong>. We recommend booking at least 1–2 weeks in advance.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modern Accessible Interactive Booking Modal Dialog -->
+  <dialog id="bookingModal" class="native-modal">
+    <div class="modal-dialog-content">
+      <div class="modal-header">
+        <div>
+          <span class="modal-subheading">PORT MORESBY NATURE PARK</span>
+          <h2 class="modal-title" id="modalTitle">Online Booking & Reservation</h2>
+        </div>
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <form id="bookingForm" class="modal-body" method="dialog">
+        <div class="form-group">
+          <label for="bookingType">Booking Category *</label>
+          <select id="bookingType" name="bookingType" required>
+            <option value="General Admission Tickets">General Admission Tickets</option>
+            <option value="School Group Excursion">School Group Excursion (Primary/Secondary)</option>
+            <option value="2026 Membership Pass Application">2026 Membership Pass Application</option>
+            <option value="Garden Venue Hire / Private Event">Garden Venue Hire / Private Event</option>
+            <option value="Guided VIP Wildlife Tour">Guided VIP Wildlife Tour</option>
+          </select>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="fullName">Your Full Name *</label>
+            <input type="text" id="fullName" name="fullName" required placeholder="e.g. Jeremy Pakao" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Phone / WhatsApp Number *</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required placeholder="+675 7230 1805" autocomplete="tel" inputmode="tel">
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="emailAddress">Email Address</label>
+            <input type="email" id="emailAddress" name="emailAddress" placeholder="you@domain.com" autocomplete="email" inputmode="email">
+          </div>
+          <div class="form-group">
+            <label for="visitDate">Preferred Date of Visit *</label>
+            <input type="date" id="visitDate" name="visitDate" required>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="visitorCount">Estimated Number of People / Students *</label>
+            <input type="number" id="visitorCount" name="visitorCount" min="1" max="1000" value="2" required>
+          </div>
+          <div class="form-group">
+            <label for="schoolName">School / Organization Name (if applicable)</label>
+            <input type="text" id="schoolName" name="schoolName" placeholder="e.g. St Joseph's College / ExxonMobil">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="specialRequests">Special Requests / Questions</label>
+          <textarea id="specialRequests" name="specialRequests" rows="3" placeholder="Tell us if you require wheelchair assistance, bus coordination, or special keeper talks..."></textarea>
+        </div>
+
+        <div class="modal-notice">
+          ℹ️ Your reservation inquiry is sent directly to our Port Moresby Nature Park customer desk. You will receive immediate WhatsApp / SMS confirmation with payment instructions.
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="modalCancelBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="modalSubmitBtn">
+            Confirm & Send Reservation
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Wildlife Details Modal Dialog -->
+  <dialog id="wildlifeModal" class="native-modal">
+    <div class="modal-dialog-content">
+      <div class="modal-header">
+        <div>
+          <span class="modal-subheading" id="wildlifeScientific">Scientific Name</span>
+          <h2 class="modal-title" id="wildlifeCommon">Common Name</h2>
+        </div>
+        <button class="modal-close-btn" id="wildlifeCloseBtn" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="wildlife-detail-img-wrap">
+          <img id="wildlifeModalImg" src="" alt="Wildlife photo" style="width:100%; border-radius:12px; max-height:280px; object-fit:cover;">
+        </div>
+        <div id="wildlifeModalBio" class="wildlife-bio-text" style="margin-top: 1rem; line-height: 1.6; color: #4b5563;">
+        </div>
+        <div class="wildlife-modal-stats" style="margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: #f3f4f6; padding: 1rem; border-radius: 8px;">
+          <div><strong>Conservation Status:</strong> <span id="wildlifeStatusText">Protected</span></div>
+          <div><strong>Habitat:</strong> <span id="wildlifeHabitatText">PNG Rainforest</span></div>
+        </div>
+        <div style="margin-top: 1.5rem; text-align: right;">
+          <button type="button" class="btn btn-primary" onclick="wildlifeModal.close()">Back to Sanctuary</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Global Footer -->
+  <footer class="site-footer" id="contact">
+    <div class="container footer-container">
+      <div class="footer-col brand-col">
+        <img src="https://portmoresbynaturepark.com.pg/wp-content/uploads/2025/03/POMnaturePark_logo-white-text.png" alt="Nature Park Logo" width="220" class="footer-logo">
+        <p class="footer-bio">
+          Port Moresby Nature Park is Papua New Guinea’s leading wildlife sanctuary, botanical conservation garden, and environmental education centre. Dedicated to protecting PNG’s incredible biodiversity.
+        </p>
+        <div class="footer-social-links">
+          <a href="https://www.facebook.com/PortMoresbyNaturePark" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95C18.05 21.45 22 17.19 22 12z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/portmoresby_naturepark25/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://x.com/naturepark2024" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/100928135/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.8v8.37h-2.8v-8.37M7.86 6.72a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@pom_naturepark24" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Park Experiences</h4>
+        <ul class="footer-links">
+          <li><a href="#plan-visit">Admission & Passes</a></li>
+          <li><a href="#wildlife">Native Wildlife Gallery</a></li>
+          <li><a href="#education">School Excursions</a></li>
+          <li><a href="#events">Events & Programs</a></li>
+          <li><a href="#membership">2026 Annual Membership</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Services & Facilities</h4>
+        <ul class="footer-links">
+          <li><a href="#venue" onclick="app.openBooking('Park Tours Inquiry')">Guided Park Tours</a></li>
+          <li><a href="#venue" onclick="app.openBooking('Garden Venue Hire')">Weddings & Venue Hire</a></li>
+          <li><a href="#venue" onclick="app.openBooking('Plant Nursery Inquiry')">Native Plant Nursery</a></li>
+          <li><a href="#venue">Nature’s Cafe & Dining</a></li>
+          <li><a href="#venue">Souvenir Gift Shop</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Get in Touch</h4>
+        <ul class="footer-contact-list">
+          <li>
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>Goro Kaeaga Rd, between UPNG & POM National High School</span>
+          </li>
+          <li>
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>P.O. Box 110, University, Port Moresby, NCD, Papua New Guinea</span>
+          </li>
+          <li>
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span>Phone: +675 7230 1805</span>
+          </li>
+          <li>
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path></svg>
+            <span>Email: info@portmoresbynaturepark.com.pg</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-container">
+        <p>&copy; 2026 Port Moresby Nature Park. All Rights Reserved. Non-Profit Wildlife Welfare & Education Sanctuary.</p>
+        <p class="credit-tag">Upgraded Modern Web Platform • Lightning Fast & Mobile First</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Sticky WhatsApp Conversion Button -->
+  <a href="https://wa.me/67572301805?text=Hello%20Nature%20Park,%20I%20would%20like%20to%20inquire%20about%20tickets%20and%20visiting." target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="Chat with Park Staff on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+    <span class="wa-tooltip">Direct WhatsApp Inquiry</span>
+  </a>
+
+  <script src="app.js"></script>
+</body>
+</html>
