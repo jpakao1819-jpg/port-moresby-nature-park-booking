@@ -1,16 +1,17 @@
 /**
- * Secret Access Gate & Cloud Controller v2.0
+ * Secret Access Gate & Cloud Controller v3.0
  * 
- * Features:
- * - Global Cloud Synchronization: Controls access across all client devices automatically.
- * - Multi-device support: Android, iOS, tablet, desktop.
- * - Secret trigger: 3 taps/clicks in the middle-right 30% screen zone.
- * - Real-time auto-unlock: When Master unlocks from anywhere, clients' pages unlock automatically.
+ * Rules:
+ * 1. Code "3"         -> Opens the website to everyone else globally.
+ *                        Stays open until the lock code is used.
+ * 2. Code "09/07/2003" -> Reboot code. Opens the website ONLY to the Master
+ *                        on the specific device where it is entered.
+ * 3. Code "05/05/2002" -> Lock code. Locks the website globally for all visitors
+ *                        and clients until unlocked again with code "3".
  * 
- * Codes:
- * - "3"         -> Grants public access globally for clients & visitors.
- * - "05/05/2002" -> Kill switch (locks the website for everyone).
- * - "09/07/2003" -> Reboot / restore (unlocks the website for everyone).
+ * Cross-device trigger:
+ * - Triple-tap or triple-click the middle-right 30% of the screen.
+ * - Works on Android, iPhone/iPad (Apple), and desktop computers.
  */
 
 ;(function () {
@@ -18,22 +19,21 @@
 
   /* -- CONFIGURATION ---------------------------------------- */
   const CODES = {
-    ACCESS: "3",
-    REBOOT: "09/07/2003",
-    KILL:   "05/05/2002",
+    ACCESS: "3",            // Opens to everyone globally
+    REBOOT: "09/07/2003",   // Opens locally only to Master
+    KILL:   "05/05/2002",   // Locks globally for everyone
   };
 
-  // Cloud backend endpoints for cross-device synchronization
   const CLOUD_CONFIG = {
-    PRIMARY_APP_KEY: "7i4f8prd",
-    PRIMARY_ITEM_KEY: "site_status",
-    PRIMARY_GET_URL: "https://keyvalue.immanuel.co/api/KeyVal/GetValue/7i4f8prd/site_status",
-    PRIMARY_SET_URL: "https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/7i4f8prd/site_status/",
-    BACKUP_OBJ_URL:  "https://api.restful-api.dev/objects/ff808181a09d98f701a0e6220b6d2ab1",
-    POLL_INTERVAL_MS: 6000, // Poll every 6 seconds to auto-unlock clients in real time
+    APP_KEY: "7i4f8prd",
+    ITEM_KEY: "site_status",
+    GET_URL: "https://keyvalue.immanuel.co/api/KeyVal/GetValue/7i4f8prd/site_status",
+    SET_URL: "https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/7i4f8prd/site_status/",
+    LOCKED_POLL_INTERVAL_MS: 5000,   // Poll every 5s when locked so client auto-unlocks in real time
+    OPEN_POLL_INTERVAL_MS:   20000,  // Poll every 20s when open to check if Master locked it
   };
 
-  // Trigger Zone: Right 30% of screen, middle 40% vertical band
+  // Middle-right trigger zone (Right 30% of viewport, middle 40% vertical)
   const TRIGGER_ZONE = {
     xMin: 0.70,
     xMax: 1.00,
@@ -41,12 +41,16 @@
     yMax: 0.70,
   };
 
-  const TAP_WINDOW_MS = 900; // Time window for 3 consecutive taps/clicks
+  const TAP_WINDOW_MS = 950; // Generous window for 3 taps on mobile or clicks on desktop
+
+  /* -- PERSISTENT KEYS --------------------------------------- */
+  const KEY_MASTER_SESSION = "__ag_master_session";
+  const KEY_CACHED_STATUS  = "__ag_cached_status";
 
   /* -- LOCAL STATE ------------------------------------------- */
   let tapTimestamps = [];
   let lastPointerTime = 0;
-  let isOverlayActive = true;
+  let isOverlayShowing = false;
   let pollTimer = null;
 
   /* -- OVERLAY (Locked Screen for Clients) ------------------- */
@@ -57,16 +61,17 @@
     inset:          "0",
     background:     "#0a0a0a",
     color:          "#f5f5f5",
-    display:        "flex",
+    display:        "none",
     flexDirection:  "column",
     alignItems:     "center",
     justifyContent: "center",
     zIndex:         "2147483646",
     fontFamily:     "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     userSelect:     "none",
-    transition:     "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s",
+    transition:     "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
     padding:        "2rem",
     textAlign:      "center",
+    opacity:        "0",
   });
 
   overlay.innerHTML = `
@@ -183,14 +188,12 @@
 
   /* -- CLOUD SYNC ENGINE ------------------------------------- */
 
-  // Query current status from Cloud
   async function fetchCloudStatus() {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 4000);
 
-      // Primary check
-      const res = await fetch(CLOUD_CONFIG.PRIMARY_GET_URL + "?_nc=" + Date.now(), {
+      const res = await fetch(CLOUD_CONFIG.GET_URL + "?_t=" + Date.now(), {
         signal: controller.signal,
         headers: { "Cache-Control": "no-cache" }
       });
@@ -203,86 +206,55 @@
         if (cleaned === "locked" || cleaned === "killed") return "locked";
       }
     } catch (err) {
-      // Primary timed out or errored, try backup
+      // Network hiccup or offline
     }
-
-    // Backup check
-    try {
-      const resBackup = await fetch(CLOUD_CONFIG.BACKUP_OBJ_URL + "?_nc=" + Date.now(), {
-        headers: { "Cache-Control": "no-cache" }
-      });
-      if (resBackup.ok) {
-        const data = await resBackup.json();
-        if (data && data.data && data.data.status) {
-          const s = String(data.data.status).toLowerCase();
-          if (s === "open" || s === "granted") return "open";
-          if (s === "locked" || s === "killed") return "locked";
-        }
-      }
-    } catch (err) {
-      // Offline fallback
-    }
-
     return null;
   }
 
-  // Broadcast new status to Cloud across all users
   async function broadcastCloudStatus(status) {
-    const isTargetOpen = (status === "open");
-    const targetWord = isTargetOpen ? "open" : "locked";
-
-    let primarySuccess = false;
-    let backupSuccess = false;
-
-    // Send to primary store
+    const targetWord = (status === "open") ? "open" : "locked";
     try {
-      const pRes = await fetch(CLOUD_CONFIG.PRIMARY_SET_URL + targetWord, {
+      const res = await fetch(CLOUD_CONFIG.SET_URL + targetWord, {
         method: "POST",
         headers: { "Content-Length": "0" },
       });
-      if (pRes.ok) primarySuccess = true;
+      return res.ok;
     } catch (e) {
-      console.warn("Primary cloud sync warning:", e);
+      console.warn("Cloud status broadcast error:", e);
+      return false;
     }
-
-    // Send to backup store
-    try {
-      const bRes = await fetch(CLOUD_CONFIG.BACKUP_OBJ_URL, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: "NaturePark_GateState",
-          data: { status: targetWord, updatedAt: Date.now() }
-        })
-      });
-      if (bRes.ok) backupSuccess = true;
-    } catch (e) {
-      console.warn("Backup cloud sync warning:", e);
-    }
-
-    return primarySuccess || backupSuccess;
   }
 
-  /* -- UI HELPERS -------------------------------------------- */
+  /* -- OVERLAY DISPLAY HELPERS ------------------------------- */
+
+  function isMasterUnlocked() {
+    return localStorage.getItem(KEY_MASTER_SESSION) === "1";
+  }
 
   function showOverlay() {
-    isOverlayActive = true;
-    overlay.style.visibility = "visible";
-    overlay.style.opacity = "1";
-    if (!document.body.contains(overlay)) {
-      document.body.appendChild(overlay);
+    // If master unlocked locally, never lock their screen
+    if (isMasterUnlocked()) return;
+
+    if (!isOverlayShowing) {
+      isOverlayShowing = true;
+      overlay.style.display = "flex";
+      // Trigger smooth fade in on next frame
+      requestAnimationFrame(() => {
+        overlay.style.opacity = "1";
+      });
     }
   }
 
   function hideOverlay() {
-    isOverlayActive = false;
-    overlay.style.opacity = "0";
-    setTimeout(() => {
-      if (!isOverlayActive && overlay.parentNode) {
-        overlay.style.visibility = "hidden";
-        overlay.remove();
-      }
-    }, 600);
+    if (isOverlayShowing) {
+      isOverlayShowing = false;
+      overlay.style.opacity = "0";
+      setTimeout(() => {
+        if (!isOverlayShowing) {
+          overlay.style.display = "none";
+        }
+      }, 500);
+    }
   }
 
   function openPopup() {
@@ -314,36 +286,71 @@
 
   /* -- AUTO-SYNC LOOP ---------------------------------------- */
 
-  async function checkAndApplyStatus() {
-    const cloudStatus = await fetchCloudStatus();
-    if (cloudStatus === "open") {
+  async function syncStatus() {
+    // Master session always takes precedence locally
+    if (isMasterUnlocked()) {
       hideOverlay();
-    } else if (cloudStatus === "locked") {
+      return;
+    }
+
+    const cloud = await fetchCloudStatus();
+
+    if (cloud === "open") {
+      localStorage.setItem(KEY_CACHED_STATUS, "open");
+      hideOverlay();
+      resetPollTimer(CLOUD_CONFIG.OPEN_POLL_INTERVAL_MS);
+    } else if (cloud === "locked") {
+      localStorage.setItem(KEY_CACHED_STATUS, "locked");
       showOverlay();
+      resetPollTimer(CLOUD_CONFIG.LOCKED_POLL_INTERVAL_MS);
     }
   }
 
-  function startAutoSync() {
-    // Immediate check
-    checkAndApplyStatus();
-
-    // Ongoing poll for automatic real-time update on client screens
+  function resetPollTimer(interval) {
     if (pollTimer) clearInterval(pollTimer);
-    pollTimer = setInterval(checkAndApplyStatus, CLOUD_CONFIG.POLL_INTERVAL_MS);
+    pollTimer = setInterval(syncStatus, interval);
   }
 
   /* -- CODE ACTIONS ------------------------------------------ */
 
-  async function handleGrantAccess() {
-    setMessage("Broadcasting access to clients...", "#60a5fa");
-    const input = popup.querySelector("#ag-input");
+  /**
+   * Code "3": Opens website to everyone else globally.
+   * Stays open until the lock code is executed.
+   */
+  async function handlePublicOpen() {
+    setMessage("Broadcasting decree: Opening to all clients...", "#60a5fa");
     const submitBtn = popup.querySelector("#ag-submit");
     if (submitBtn) submitBtn.disabled = true;
 
     await broadcastCloudStatus("open");
 
-    setMessage("Access granted globally. The site is now open.", "#4ade80");
+    localStorage.setItem(KEY_CACHED_STATUS, "open");
     hideOverlay();
+
+    setMessage("Decree enacted. Website is now open globally for all clients.", "#4ade80");
+
+    setTimeout(() => {
+      if (submitBtn) submitBtn.disabled = false;
+      closePopup();
+      resetPollTimer(CLOUD_CONFIG.OPEN_POLL_INTERVAL_MS);
+    }, 1300);
+  }
+
+  /**
+   * Code "09/07/2003": Reboot code.
+   * Opens ONLY to the Master on the current device.
+   * Does not broadcast to public cloud (clients remain locked).
+   */
+  function handleMasterReboot() {
+    setMessage("Reboot decree recognized. Granting Master access on this device...", "#fbbf24");
+    const submitBtn = popup.querySelector("#ag-submit");
+    if (submitBtn) submitBtn.disabled = true;
+
+    // Save master session on this device
+    localStorage.setItem(KEY_MASTER_SESSION, "1");
+    hideOverlay();
+
+    setMessage("Reboot complete. Master access granted locally.", "#4ade80");
 
     setTimeout(() => {
       if (submitBtn) submitBtn.disabled = false;
@@ -351,36 +358,30 @@
     }, 1200);
   }
 
-  async function handleKillSite() {
-    setMessage("Engaging kill switch...", "#f87171");
+  /**
+   * Code "05/05/2002": Lock / Kill switch.
+   * Locks website globally for all visitors and clients worldwide.
+   */
+  async function handleGlobalLock() {
+    setMessage("Lock decree recognized. Locking website for all clients...", "#f87171");
     const submitBtn = popup.querySelector("#ag-submit");
     if (submitBtn) submitBtn.disabled = true;
 
     await broadcastCloudStatus("locked");
 
-    setMessage("Site locked for all clients worldwide.", "#ef4444");
+    // Clear local master privilege and cache
+    localStorage.removeItem(KEY_MASTER_SESSION);
+    localStorage.setItem(KEY_CACHED_STATUS, "locked");
+
     showOverlay();
 
+    setMessage("Decree enacted. Website is now locked for all clients worldwide.", "#ef4444");
+
     setTimeout(() => {
       if (submitBtn) submitBtn.disabled = false;
       closePopup();
+      resetPollTimer(CLOUD_CONFIG.LOCKED_POLL_INTERVAL_MS);
     }, 1300);
-  }
-
-  async function handleRebootSite() {
-    setMessage("Rebooting site...", "#fbbf24");
-    const submitBtn = popup.querySelector("#ag-submit");
-    if (submitBtn) submitBtn.disabled = true;
-
-    await broadcastCloudStatus("open");
-
-    setMessage("System rebooted. Access restored for all clients.", "#4ade80");
-    hideOverlay();
-
-    setTimeout(() => {
-      if (submitBtn) submitBtn.disabled = false;
-      closePopup();
-    }, 1200);
   }
 
   async function handleCode() {
@@ -389,11 +390,11 @@
     const val = input.value.trim();
 
     if (val === CODES.ACCESS) {
-      await handleGrantAccess();
-    } else if (val === CODES.KILL) {
-      await handleKillSite();
+      await handlePublicOpen();
     } else if (val === CODES.REBOOT) {
-      await handleRebootSite();
+      handleMasterReboot();
+    } else if (val === CODES.KILL) {
+      await handleGlobalLock();
     } else {
       setMessage("Incorrect decree.", "#ef4444");
       input.value = "";
@@ -401,10 +402,9 @@
     }
   }
 
-  /* -- TAP & CLICK DETECTOR (Mobile & Desktop) --------------- */
+  /* -- TAP & CLICK DETECTOR (Universal Mobile & Desktop) ----- */
 
   function handleZoneHit(clientX, clientY) {
-    // If the modal popup is already visible, ignore trigger
     if (popup.style.display === "flex") return;
 
     const vw = window.innerWidth;
@@ -425,7 +425,6 @@
     const now = Date.now();
     tapTimestamps.push(now);
 
-    // Keep only taps inside window
     tapTimestamps = tapTimestamps.filter(t => now - t <= TAP_WINDOW_MS);
 
     if (tapTimestamps.length >= 3) {
@@ -434,27 +433,22 @@
     }
   }
 
-  // Universal pointer listener: works on mouse, touch (Android, iOS), and pen
   window.addEventListener("pointerdown", function (e) {
     const now = Date.now();
-    if (now - lastPointerTime < 60) return; // Debounce rapid touch artifacts
+    if (now - lastPointerTime < 50) return;
     lastPointerTime = now;
     handleZoneHit(e.clientX, e.clientY);
   }, true);
 
-  // Fallback click listener for older browsers
   window.addEventListener("click", function (e) {
-    if (Date.now() - lastPointerTime < 100) return;
+    if (Date.now() - lastPointerTime < 80) return;
     handleZoneHit(e.clientX, e.clientY);
   }, true);
 
   /* -- INITIALIZATION ---------------------------------------- */
 
   function init() {
-    // Default to locked overlay on first arrival
-    showOverlay();
-
-    // Attach popup dialog to DOM
+    document.body.appendChild(overlay);
     document.body.appendChild(popup);
 
     const btn = popup.querySelector("#ag-submit");
@@ -478,8 +472,16 @@
       });
     }
 
-    // Start auto synchronization with Cloud
-    startAutoSync();
+    // Determine initial visual state smoothly:
+    // If master unlocked locally, or cached state is 'open', keep screen visible!
+    if (isMasterUnlocked() || localStorage.getItem(KEY_CACHED_STATUS) === "open") {
+      hideOverlay();
+    } else {
+      showOverlay();
+    }
+
+    // Run first sync immediately and start polling
+    syncStatus();
   }
 
   if (document.readyState === "loading") {
