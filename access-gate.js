@@ -192,9 +192,9 @@
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 4000);
 
+      // Simple GET request with timestamp to bypass cache, NO custom headers to avoid CORS preflight rejection
       const res = await fetch(CLOUD_CONFIG.GET_URL + "?_t=" + Date.now(), {
-        signal: controller.signal,
-        headers: { "Cache-Control": "no-cache" }
+        signal: controller.signal
       });
       clearTimeout(timeoutId);
 
@@ -205,7 +205,7 @@
         if (cleaned === "locked" || cleaned === "killed") return "locked";
       }
     } catch (err) {
-      // Network hiccup or offline
+      console.warn("Cloud status fetch error:", err);
     }
     return null;
   }
@@ -213,9 +213,10 @@
   async function broadcastCloudStatus(status) {
     const targetWord = (status === "open") ? "open" : "locked";
     try {
+      // Simple POST request with body: "1" -- avoid forbidden Content-Length header or custom headers
       const res = await fetch(CLOUD_CONFIG.SET_URL + targetWord, {
         method: "POST",
-        headers: { "Content-Length": "0" },
+        body: "1"
       });
       return res.ok;
     } catch (e) {
@@ -466,10 +467,14 @@
 
     // Determine initial visual state smoothly:
     // If master unlocked locally, or cached state is 'open', keep screen visible!
+    // If explicitly cached as locked, show overlay immediately.
+    // If fresh visitor (no cache yet), default to open while verifying cloud decree in background!
     if (isMasterUnlocked() || localStorage.getItem(KEY_CACHED_STATUS) === "open") {
       hideOverlay();
-    } else {
+    } else if (localStorage.getItem(KEY_CACHED_STATUS) === "locked") {
       showOverlay();
+    } else {
+      hideOverlay();
     }
 
     // Run first sync immediately and start polling
