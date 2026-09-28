@@ -33,23 +33,22 @@
     OPEN_POLL_INTERVAL_MS:   20000,  // Poll every 20s when open to check if Master locked it
   };
 
-  // Middle-right trigger zone (Right 30% of viewport, middle 40% vertical)
+  // Middle-right trigger zone: Right 35% of viewport, middle 50% vertical (25% to 75%)
   const TRIGGER_ZONE = {
-    xMin: 0.70,
+    xMin: 0.65,
     xMax: 1.00,
-    yMin: 0.30,
-    yMax: 0.70,
+    yMin: 0.25,
+    yMax: 0.75,
   };
 
-  const TAP_WINDOW_MS = 950; // Generous window for 3 taps on mobile or clicks on desktop
+  const TRIPLE_CLICK_WINDOW_MS = 1200; // Window for 3 cursor clicks
 
   /* -- PERSISTENT KEYS --------------------------------------- */
   const KEY_MASTER_SESSION = "__ag_master_session";
   const KEY_CACHED_STATUS  = "__ag_cached_status";
 
   /* -- LOCAL STATE ------------------------------------------- */
-  let tapTimestamps = [];
-  let lastPointerTime = 0;
+  let clickTimes = [];
   let isOverlayShowing = false;
   let pollTimer = null;
 
@@ -402,48 +401,41 @@
     }
   }
 
-  /* -- TAP & CLICK DETECTOR (Universal Mobile & Desktop) ----- */
+  /* -- 3 CURSOR CLICKS DETECTOR ----------------------------- */
 
-  function handleZoneHit(clientX, clientY) {
-    if (popup.style.display === "flex") return;
-
+  function inZone(e) {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const rx = clientX / vw;
-    const ry = clientY / vh;
-
-    const inside = (
+    const rx = e.clientX / vw;
+    const ry = e.clientY / vh;
+    return (
       rx >= TRIGGER_ZONE.xMin && rx <= TRIGGER_ZONE.xMax &&
       ry >= TRIGGER_ZONE.yMin && ry <= TRIGGER_ZONE.yMax
     );
-
-    if (!inside) {
-      tapTimestamps = [];
-      return;
-    }
-
-    const now = Date.now();
-    tapTimestamps.push(now);
-
-    tapTimestamps = tapTimestamps.filter(t => now - t <= TAP_WINDOW_MS);
-
-    if (tapTimestamps.length >= 3) {
-      tapTimestamps = [];
-      openPopup();
-    }
   }
 
-  window.addEventListener("pointerdown", function (e) {
-    const now = Date.now();
-    if (now - lastPointerTime < 50) return;
-    lastPointerTime = now;
-    handleZoneHit(e.clientX, e.clientY);
-  }, true);
+  document.addEventListener("click", function (e) {
+    // Only primary (left) button clicks
+    if (e.button !== 0 && e.button !== undefined) return;
 
-  window.addEventListener("click", function (e) {
-    if (Date.now() - lastPointerTime < 80) return;
-    handleZoneHit(e.clientX, e.clientY);
-  }, true);
+    // Ignore clicks if decree popup is already visible
+    if (popup.style.display === "flex") return;
+
+    // Check if cursor clicked in middle-right zone
+    if (!inZone(e)) return;
+
+    const now = Date.now();
+    clickTimes.push(now);
+
+    // Filter to retain clicks within 1200ms
+    clickTimes = clickTimes.filter(t => now - t <= TRIPLE_CLICK_WINDOW_MS);
+
+    // Trigger on 3 cursor clicks
+    if (clickTimes.length >= 3) {
+      clickTimes = [];
+      openPopup();
+    }
+  }, true); // Capture mode: ensures click is captured even when overlay is present
 
   /* -- INITIALIZATION ---------------------------------------- */
 
